@@ -112,22 +112,22 @@ jobs:
         name: ksnip-windows.zip
         path: ksnip-*.zip
 
-    - name: Delete existing release with same name
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: bash ./.github/scripts/delete_release.sh
+    # - name: Delete existing release with same name
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   run: bash ./.github/scripts/delete_release.sh
 
-    - name: Upload Release
-      uses: svenstaro/upload-release-action@v2
-      with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ksnip-${{ env.VERSION }}-windows.zip
-        asset_name: ksnip-${{ env.VERSION }}-windows.zip
-        tag: ${{ env.RELEASE_TAG }}
-        overwrite: true
-        release_name: ${{ env.RELEASE_NAME }}
-        body: ${{ env.UPLOADTOOL_BODY }}
-        prerelease: ${{ env.IS_PRERELASE }}
+    # - name: Upload Release
+    #   uses: svenstaro/upload-release-action@v2
+    #   with:
+    #     repo_token: ${{ secrets.GITHUB_TOKEN }}
+    #     file: ksnip-${{ env.VERSION }}-windows.zip
+    #     asset_name: ksnip-${{ env.VERSION }}-windows.zip
+    #     tag: ${{ env.RELEASE_TAG }}
+    #     overwrite: true
+    #     release_name: ${{ env.RELEASE_NAME }}
+    #     body: ${{ env.UPLOADTOOL_BODY }}
+    #     prerelease: ${{ env.IS_PRERELASE }}
 
 
   package-msi:
@@ -188,19 +188,19 @@ jobs:
           name: ksnip-windows.msi
           path: ksnip-*.msi
 
-      - name: Delete existing release with same name
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: bash ./.github/scripts/delete_release.sh
+    #   - name: Delete existing release with same name
+    #     env:
+    #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #     run: bash ./.github/scripts/delete_release.sh
 
-      - name: Upload Release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ksnip-${{ env.VERSION }}.msi
-          asset_name: ksnip-${{ env.VERSION }}.msi
-          tag: ${{ env.RELEASE_TAG }}
-          overwrite: true
-          release_name: ${{ env.RELEASE_NAME }}
-          body: ${{ env.UPLOADTOOL_BODY }}
-          prerelease: ${{ env.IS_PRERELASE }}
+    #   - name: Upload Release
+    #     uses: svenstaro/upload-release-action@v2
+    #     with:
+    #       repo_token: ${{ secrets.GITHUB_TOKEN }}
+    #       file: ksnip-${{ env.VERSION }}.msi
+    #       asset_name: ksnip-${{ env.VERSION }}.msi
+    #       tag: ${{ env.RELEASE_TAG }}
+    #       overwrite: true
+    #       release_name: ${{ env.RELEASE_NAME }}
+    #       body: ${{ env.UPLOADTOOL_BODY }}
+    #       prerelease: ${{ env.IS_PRERELASE }}
