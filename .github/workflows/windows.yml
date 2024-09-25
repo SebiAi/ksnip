@@ -130,63 +130,63 @@ jobs:
     #     prerelease: ${{ env.IS_PRERELASE }}
 
 
-  package-msi:
-    runs-on: windows-latest
-    needs: test-windows
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+#   package-msi:
+#     runs-on: windows-latest
+#     needs: test-windows
+#     steps:
+#       - name: Checkout
+#         uses: actions/checkout@v3
 
-      - name: Set up build variables
-        run: bash ./.github/scripts/setup_build_variables.sh
+#       - name: Set up build variables
+#         run: bash ./.github/scripts/setup_build_variables.sh
 
-      - name: Set up windows build variables
-        run: bash ./.github/scripts/windows/setup_windows_build_variables.sh
+#       - name: Set up windows build variables
+#         run: bash ./.github/scripts/windows/setup_windows_build_variables.sh
 
-      - name: Install Qt
-        uses: jurplel/install-qt-action@v3
-        with:
-          version: '5.15.2'
-          host: 'windows'
-          install-deps: 'true'
-          arch: 'win64_msvc2019_64'
+#       - name: Install Qt
+#         uses: jurplel/install-qt-action@v3
+#         with:
+#           version: '5.15.2'
+#           host: 'windows'
+#           install-deps: 'true'
+#           arch: 'win64_msvc2019_64'
 
-      - name: Set up nmake
-        uses: ilammy/msvc-dev-cmd@v1
+#       - name: Set up nmake
+#         uses: ilammy/msvc-dev-cmd@v1
 
-      - name: Set up kColorPicker
-        run: bash ./.github/scripts/setup_kColorPicker.sh
+#       - name: Set up kColorPicker
+#         run: bash ./.github/scripts/setup_kColorPicker.sh
 
-      - name: Set up kImageAnnotator
-        run: bash ./.github/scripts/setup_kImageAnnotator.sh
+#       - name: Set up kImageAnnotator
+#         run: bash ./.github/scripts/setup_kImageAnnotator.sh
 
-      - name: Download OpenSSL
-        run: |
-          curl -L "https://github.com/ksnip/dependencies/raw/master/windows/openSSL.zip" --output openssl.zip
-          7z x openssl.zip -o"${{ env.OPENSSL_DIR }}"
+#       - name: Download OpenSSL
+#         run: |
+#           curl -L "https://github.com/ksnip/dependencies/raw/master/windows/openSSL.zip" --output openssl.zip
+#           7z x openssl.zip -o"${{ env.OPENSSL_DIR }}"
 
-      - name: Download CompileRuntime
-        run: |
-          curl -L "https://github.com/ksnip/dependencies/raw/master/windows/compileRuntime.zip" --output compileruntime.zip
-          7z x compileruntime.zip -o"${{ env.COMPILE_RUNTIME_DIR }}"
+#       - name: Download CompileRuntime
+#         run: |
+#           curl -L "https://github.com/ksnip/dependencies/raw/master/windows/compileRuntime.zip" --output compileruntime.zip
+#           7z x compileruntime.zip -o"${{ env.COMPILE_RUNTIME_DIR }}"
 
-      - name: Build
-        run: bash ./.github/scripts/build_ksnip.sh
+#       - name: Build
+#         run: bash ./.github/scripts/build_ksnip.sh
 
-      - name: Package msi
-        run: bash ./.github/scripts/windows/msi/package_msi.sh
+#       - name: Package msi
+#         run: bash ./.github/scripts/windows/msi/package_msi.sh
 
-      - name: Sign msi
-        env:
-          MICROSOFT_CERT_PFX: ${{ secrets.MICROSOFT_CERT_PFX }}
-          MICROSOFT_CERT_PFX_PASS: ${{ secrets.MICROSOFT_CERT_PFX_PASS }}
-        run: powershell ./.github/scripts/windows/msi/sign_msi_package.ps1
+#       - name: Sign msi
+#         env:
+#           MICROSOFT_CERT_PFX: ${{ secrets.MICROSOFT_CERT_PFX }}
+#           MICROSOFT_CERT_PFX_PASS: ${{ secrets.MICROSOFT_CERT_PFX_PASS }}
+#         run: powershell ./.github/scripts/windows/msi/sign_msi_package.ps1
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: ksnip-windows.msi
-          path: ksnip-*.msi
+#       - name: Upload Artifact
+#         uses: actions/upload-artifact@v3
+#         with:
+#           name: ksnip-windows.msi
+#           path: ksnip-*.msi
 
     #   - name: Delete existing release with same name
     #     env:
